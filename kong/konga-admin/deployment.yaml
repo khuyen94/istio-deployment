@@ -46,7 +46,6 @@ metadata:
   labels:
     app: konga
   name: konga-svc
-  namespace: alt
 spec:
   ports:
     - protocol: TCP
@@ -64,7 +63,7 @@ metadata:
   name: konga
 spec:
   rules:
-  - host: konga.mydomain.com
+  - host: localhost
     http:
       paths:
       - backend:
@@ -73,5 +72,5 @@ spec:
         path: /
   tls:
     - hosts:
-      - konga.mydomain.com
+      - localhost
       secretName: konga-mydomain-tls

@@ -14,7 +14,7 @@ Note:
   `kubectl apply -f https://bit.ly/kong-ingress-dbless`
 
  ### Helm Chart
-    helm repo add kong https://charts.konghq.com
+    $ helm repo add kong https://charts.konghq.com
     $ helm repo update
 
     # Helm 2

@@ -13,29 +13,29 @@ spec:
       containers:
       - name: konga
         image: pantsel/konga
-        env:
-        - name: DB_ADAPTER
-          value: postgres
-        - name: DB_HOST
-          value: mydbendpoint
-          #valueFrom:
-          #  secretKeyRef:
-          #    name: kongcreds
-          #    key: postgresdbname
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: kongcreds
-              key: username
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: kongcreds
-              key: password
-        - name: DB_DATABASE
-          value: postgres
-        - name: TOKEN_SECRET
-          value: somesecretstring
+        # env:
+        # - name: DB_ADAPTER
+        #   value: postgres
+        # - name: DB_HOST
+        #   value: mydbendpoint
+        #   #valueFrom:
+        #   #  secretKeyRef:
+        #   #    name: kongcreds
+        #   #    key: postgresdbname
+        # - name: DB_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: kongcreds
+        #       key: username
+        # - name: DB_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: kongcreds
+        #       key: password
+        # - name: DB_DATABASE
+        #   value: postgres
+        # - name: TOKEN_SECRET
+        #   value: somesecretstring
         ports:
         - containerPort: 1337
           protocol: TCP
@@ -63,7 +63,7 @@ metadata:
   name: konga
 spec:
   rules:
-  - host: localhost
+  - host: kongadmin.mydomain.com
     http:
       paths:
       - backend:
@@ -72,5 +72,5 @@ spec:
         path: /
   tls:
     - hosts:
-      - localhost
+      - kongadmin.mydomain.com
       secretName: konga-mydomain-tls

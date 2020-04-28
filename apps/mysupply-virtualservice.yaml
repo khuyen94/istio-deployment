@@ -44,16 +44,21 @@ spec:
     route:
     - destination:
         host: comvita-mysupply.default.svc.cluster.local
-        subset: v1
         port:
           number: 80
-      weight: 95
-    - destination:
-        host: comvita-mysupply.default.svc.cluster.local
-        subset: v2
-        port:
-          number: 80
-      weight: 5
+    # route:
+    # - destination:
+    #     host: comvita-mysupply.default.svc.cluster.local
+    #     subset: v1
+    #     port:
+    #       number: 80
+    #   weight: 80
+    # - destination:
+    #     host: comvita-mysupply.default.svc.cluster.local
+    #     subset: v2
+    #     port:
+    #       number: 80
+    #   weight: 20
   - match:
     - uri:
         prefix: /mysupply-adyen

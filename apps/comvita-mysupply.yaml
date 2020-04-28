@@ -19,7 +19,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: comvita-mysupply
-        image: intcoredevacr.azurecr.io/comvita-supply:9504
+        image: intcoredevacr.azurecr.io/comvita-supply:v1
         imagePullPolicy: Always
         resources:
           requests:

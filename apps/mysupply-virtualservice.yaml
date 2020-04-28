@@ -10,9 +10,55 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /
+        exact: /
+    - uri:
+        exact: /verify-email
+    - uri:
+        exact: /brand-story
+    - uri:
+        prefix: /news
+    - uri:
+        exact: /news-and-events
+    - uri:
+        prefix: /products
+    - uri:
+        prefix: /categories
+    - uri:
+        exact: /global-contacts
+    - uri:
+        exact: /investors
+    - uri:
+        prefix: /user
+    - uri:
+        exact: /retail-stores
+    - uri:
+        exact: /onsale
+    - uri:
+        exact: /ecomm
+    - uri:
+        prefix: /_next
+    - uri:
+        prefix: /assets
+    - uri:
+        regex: '^.*\.(ico|png|jpg|webp)$'
     route:
     - destination:
-        host: comvita-mysupply.frontend-ns.svc.cluster.local
+        host: comvita-mysupply.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 80
+      weight: 95
+    - destination:
+        host: comvita-mysupply.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 80
+      weight: 5
+  - match:
+    - uri:
+        prefix: /mysupply-adyen
+    route:
+    - destination:
+        host: comvita-mysupply-adyen.default.svc.cluster.local
         port:
           number: 80

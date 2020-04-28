@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: comvita-mysupply
+spec:
+  hosts:
+    - comvita-mysupply.default.svc.cluster.local           # 1
+  http:
+  - route:
+    - destination:
+        host: comvita-mysupply.default.svc.cluster.local   # 2
+        subset: v1       # 3
+    mirror:              # 4
+      host: comvita-mysupply.default.svc.cluster.local     
+      subset: v2

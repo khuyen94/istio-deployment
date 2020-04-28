@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comvita-mysupply
+  labels:
+    app: comvita-mysupply
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comvita-mysupply
+  template:
+    metadata:
+      labels:
+        app: comvita-mysupply
+        version: v1
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: comvita-mysupply
+        image: intcoredevacr.azurecr.io/comvita-supply:9504
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "300m"
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORT
+          value: "80"
+        - name: ENV
+          value: "development"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comvita-mysupply
+  labels:
+    app: comvita-mysupply
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: comvita-mysupply

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comvita-mysupply-adyen
+  labels:
+    app: comvita-mysupply-adyen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comvita-mysupply-adyen
+  template:
+    metadata:
+      labels:
+        app: comvita-mysupply-adyen
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: comvita-mysupply-adyen
+        image: intcoredevacr.azurecr.io/comvita-service-order:2804202001
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "300m"
+        ports:
+        - containerPort: 5000
+        env:
+        - name: BASE_URL
+          value: "/mysupply-adyen"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comvita-mysupply-adyen
+  labels:
+    app: comvita-mysupply-adyen
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 5000
+  selector:
+    app: comvita-mysupply-adyen

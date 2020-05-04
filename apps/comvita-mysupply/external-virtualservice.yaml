@@ -1,0 +1,246 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: comvita-supply
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - http-gateway                    # 1
+  http:
+  - match:
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /verify-email
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /brand-story
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        prefix: /news
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /news-and-events
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        prefix: /products
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        prefix: /categories
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /global-contacts
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /investors
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        prefix: /user
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /retail-stores
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /onsale
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        exact: /ecomm
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        prefix: /_next
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        prefix: /assets
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v1)(.*)?$
+      uri:
+        regex: '^.*\.(ico|png|jpg|webp)$'
+    route:
+    - destination:
+        host: comvita-mysupply.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 80
+  - match:
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /verify-email
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /brand-story
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        prefix: /news
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /news-and-events
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        prefix: /products
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        prefix: /categories
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /global-contacts
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /investors
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        prefix: /user
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /retail-stores
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /onsale
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        exact: /ecomm
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        prefix: /_next
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        prefix: /assets
+    - headers:
+            cookie:
+              regex: ^(.*\s*)?(comvita-mysupply=v2)(.*)?$
+      uri:
+        regex: '^.*\.(ico|png|jpg|webp)$'
+    route:
+    - destination:
+        host: comvita-mysupply.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 80
+  - match:
+    - uri:
+        exact: /
+    - uri:
+        exact: /verify-email
+    - uri:
+        exact: /brand-story
+    - uri:
+        prefix: /news
+    - uri:
+        exact: /news-and-events
+    - uri:
+        prefix: /products
+    - uri:
+        prefix: /categories
+    - uri:
+        exact: /global-contacts
+    - uri:
+        exact: /investors
+    - uri:
+        prefix: /user
+    - uri:
+        exact: /retail-stores
+    - uri:
+        exact: /onsale
+    - uri:
+        exact: /ecomm
+    - uri:
+        prefix: /_next
+    - uri:
+        prefix: /assets
+    - uri:
+        regex: '^.*\.(ico|png|jpg|webp)$'
+    route:
+    - destination:
+        host: comvita-mysupply.default.svc.cluster.local
+        subset: v1
+        port:
+          number: 80
+      headers:
+            response:
+              set:
+                Set-Cookie: comvita-mysupply=v1
+      weight: 80
+    - destination:
+        host: comvita-mysupply.default.svc.cluster.local
+        subset: v2
+        port:
+          number: 80
+      headers:
+            response:
+              set:
+                Set-Cookie: comvita-mysupply=v2
+      weight: 20
+  - match:
+    - uri:
+        prefix: /mysupply-adyen
+    route:
+    - destination:
+        host: comvita-mysupply-adyen.default.svc.cluster.local
+        port:
+          number: 80

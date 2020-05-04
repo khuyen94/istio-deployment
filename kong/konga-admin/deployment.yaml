@@ -39,13 +39,20 @@ spec:
         ports:
         - containerPort: 1337
           protocol: TCP
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "300m"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app: konga
-  name: konga-svc
+  name: konga
 spec:
   ports:
     - protocol: TCP
@@ -53,24 +60,24 @@ spec:
       targetPort: 1337
   selector:
     app: konga
----
-kind: Ingress
-apiVersion: extensions/v1beta1
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  name: konga
-spec:
-  rules:
-  - host: kongadmin.mydomain.com
-    http:
-      paths:
-      - backend:
-          serviceName: konga-svc
-          servicePort: 443
-        path: /
-  tls:
-    - hosts:
-      - kongadmin.mydomain.com
-      secretName: konga-mydomain-tls
+# ---
+# kind: Ingress
+# apiVersion: extensions/v1beta1
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#   name: konga
+# spec:
+#   rules:
+#   - host: kongadmin.mydomain.com
+#     http:
+#       paths:
+#       - backend:
+#           serviceName: konga-svc
+#           servicePort: 443
+#         path: /
+#   tls:
+#     - hosts:
+#       - kongadmin.mydomain.com
+#       secretName: konga-mydomain-tls

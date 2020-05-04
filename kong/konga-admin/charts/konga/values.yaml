@@ -9,31 +9,31 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: "my-konga"
+fullnameOverride: "my-konga"
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 
 # Konga default configuration
-config: {}
-#   port: 1337
-#   node_env: development
-#   ssl_key_path:
-#   ssl_crt_path:
-#   konga_hook_timeout: 60000
-#   db_adapter: postgres
-#   db_uri:
-#   db_host: localhost
-#   db_port: 5432
-#   db_user:
-#   db_password:
-#   db_database: konga_database
-#   db_pg_schema: public
-#   log_level: debug
-#   token_secret:
+config: 
+  port: 1337
+  node_env: development
+  ssl_key_path: 
+  ssl_crt_path: 
+  konga_hook_timeout: 60000
+  db_adapter: postgres
+  db_uri: 
+  db_host: int-core-aks-postgresql.postgres.database.azure.com
+  db_port: 5432
+  db_user: aks_admin@int-core-aks-postgresql
+  db_password: P@ssword1
+  db_database: konga_database
+  db_pg_schema: public
+  log_level: debug
+  token_secret: 
 
 # LDAP configuration for Konga
 ldap: {}

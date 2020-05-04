@@ -18,9 +18,11 @@ Note:
     $ helm repo update
 
     # Helm 2
-    $ helm install kong/kong
+    $ helm install kong/kong -f .\kong\kong-value.yaml --name my-kong --namespace kong
 
     # Helm 3
     $ helm install kong/kong --generate-name --set ingressController.installCRDs=false
 ### Kustomize
     kustomize build github.com/kong/kubernetes-ingress-controller/deploy/manifests/base
+
+### Upgrade Kong use Helm 2

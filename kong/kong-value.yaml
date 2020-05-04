@@ -18,13 +18,13 @@
 # e.g. setting pg_user here will override the value normally set when postgresql.enabled
 # is set below. In general, you should not set values here if they are set elsewhere.
 env:
-  database: "off"
-  # database: "postgres"
-  # pg_host: "db_host"
-  # pg_port: "db_port"
-  # pg_user: "$db_username"
-  # pg_password: "$db_password"
-  # pg_database: "$db_name"
+  # database: "off"
+  database: "postgres"
+  pg_host: "int-core-aks-postgresql.postgres.database.azure.com"
+  pg_port: "5432"
+  pg_user: "aks_admin@int-core-aks-postgresql"
+  pg_password: "P@ssword1"
+  pg_database: "kong_database"
   nginx_worker_processes: "1"
   proxy_access_log: /dev/stdout
   admin_access_log: /dev/stdout
@@ -41,7 +41,7 @@ image:
   repository: kong
   # repository: kong-docker-kong-enterprise-k8s.bintray.io/kong-enterprise-k8s
   # repository: kong-docker-kong-enterprise-edition-docker.bintray.io/kong-enterprise-edition
-  tag: 2.0
+  tag: latest
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
@@ -61,11 +61,18 @@ admin:
   annotations: {}
   #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
 
-  # HTTPS traffic on the admin port
-  # if set to false also set readinessProbe and livenessProbe httpGet scheme's to 'HTTP'
-  useTLS: false
-  servicePort: 8444
-  containerPort: 8444
+  http:
+    enabled: true # create HTTP listen
+    servicePort: 8001
+    containerPort: 8001
+    parameters: []
+
+  tls:
+    enabled: true # create HTTPS listen
+    servicePort: 8444
+    containerPort: 8444
+    parameters:
+    - http2
   # Kong admin service type
   type: LoadBalancer
   # Set a nodePort which is available
@@ -94,7 +101,7 @@ proxy:
   # HTTP plain-text traffic
   http:
     enabled: true
-    servicePort: 85
+    servicePort: 80
     containerPort: 8000
     # Set a nodePort which is available if service type is NodePort
     # nodePort: 32080
@@ -156,8 +163,10 @@ plugins: {}
 # - kong-admin-tls
 secretVolumes: []
 
-# Set runMigrations to run Kong migrations
-runMigrations: true
+# Set migrations to run Kong migrations
+migrations:
+  preUpgrade: true
+  postUpgrade: true
 
 # Kong's configuration for DB-less mode
 # Note: Use this section only if you are deploying Kong in DB-less mode

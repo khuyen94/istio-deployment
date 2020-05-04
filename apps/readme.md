@@ -17,7 +17,7 @@ Use DestinationRules to specify policy that apply to the traffic intended for th
           consistentHash:
             httpHeaderName: version   # 1
     
-## 3. Install ModHeader chrome extensio, then test. 
+## 3. Install ModHeader chrome extension, then test. 
 https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj 
 
 # Shadowing — Virtual Services

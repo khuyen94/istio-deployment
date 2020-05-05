@@ -148,8 +148,10 @@ proxy:
 # The `name` property refers to the name of the ConfigMap or Secret
 # itself, while the pluginName refers to the name of the plugin as it appears
 # in Kong.
-plugins: {}
-  # configMaps:
+plugins: 
+  configMaps:
+  - pluginName: oidc
+    name: kong-plugin-oidc
   # - pluginName: rewriter
   #   name: kong-plugin-rewriter
   # secrets:

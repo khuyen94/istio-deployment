@@ -9,6 +9,17 @@
 Note: 
 > Do not recommend using Kong with Cassandra on Kubernetes deployments. Should be use managed database service from cloud-provider.
 
+### Prepare ConfigMap for custom plugins
+1. Install Luarocks: [This link](..\luarocks\README.md)
+2. Install plugin using luarocks. Ex: `luarocks install kong-oidc`
+3. Create ConfigMap 
+
+Go to "C:\lua\share\plugins". Then
+
+        kubectl create configmap kong-plugin-oidc --from-file=.\plugins\oidc -n kong  
+
+
+
  ### Yaml manifest
   To deploy Kong via kubectl, use:
   `kubectl apply -f https://bit.ly/kong-ingress-dbless`
@@ -26,3 +37,4 @@ Note:
     kustomize build github.com/kong/kubernetes-ingress-controller/deploy/manifests/base
 
 ### Upgrade Kong use Helm 2
+    $ helm upgrade my-kong kong/kong -f .\kong\kong-value.yaml

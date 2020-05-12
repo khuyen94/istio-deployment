@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comvita-mysupply-adyen
+  name: merchant-center
   labels:
-    app: comvita-mysupply-adyen
+    app: merchant-center
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comvita-mysupply-adyen
+      app: merchant-center
   template:
     metadata:
       labels:
-        app: comvita-mysupply-adyen
+        app: merchant-center
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
       containers:
-      - name: comvita-mysupply-adyen
-        image: intcoredevacr.azurecr.io/comvita-service-order:1105202001
+      - name: merchant-center
+        image: intcoredevacr.azurecr.io/merchant-center:#{Build.BuildId}#
         imagePullPolicy: Always
         resources:
           requests:
@@ -28,39 +28,39 @@ spec:
             memory: "64Mi"
             cpu: "100m"
         ports:
-        - containerPort: 5000
+        - containerPort: 3000
         env:
-        - name: BASE_URL
-          value: ""
+        - name: ENV
+          value: "development"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: comvita-mysupply-adyen
+  name: merchant-center
   labels:
-    app: comvita-mysupply-adyen
+    app: merchant-center
 spec:
   ports:
   - name: http
     port: 80
-    targetPort: 5000
+    targetPort: 3000
   selector:
-    app: comvita-mysupply-adyen
+    app: merchant-center
 
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: comvita-adyen
+  name: merchant-center
 spec:
   hosts:
-  - comvita-adyen.hubs365.com
+  - merchant-center.hubs365.com
   gateways:
-  - http-gateway                    
-  - https-gateway                    
+  - http-gateway            
+  - https-gateway       
   http:
   - route:
     - destination:
-        host: comvita-mysupply-adyen.default.svc.cluster.local
+        host: merchant-center.default.svc.cluster.local
         port:
           number: 80

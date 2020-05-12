@@ -11,4 +11,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+      - '*.hubs365.com'
+      - istio-demo.australiaeast.cloudapp.azure.com
+    tls:
+      httpsRedirect: true

@@ -11,8 +11,7 @@ spec:
       name: https-443
       protocol: HTTPS
     hosts:
-    - "istio-demo.australiaeast.cloudapp.azure.com"
+    - '*.hubs365.com'
     tls:
       mode: SIMPLE
-      privateKey: /etc/istio/ingressgateway-certs/tls.key
-      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      credentialName: hubs365-com-credential

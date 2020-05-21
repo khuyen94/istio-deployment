@@ -1,0 +1,18 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: identityserver-certificate
+  namespace: istio-system
+spec:
+  secretName: identityserver-certificate
+  issuerRef:
+    name: letsencrypt
+  commonName: identityserver.hubs365.com
+  dnsNames:
+  - identityserver.hubs365.com
+  acme:
+    config:
+    - http01:
+        ingressClass: istio
+      domains:
+      - identityserver.hubs365.com

@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: konga
+spec:
+  hosts:
+  - konga.hubs365.com
+  gateways:
+  - http-gateway     
+  - https-gateway               # 1
+  http:
+  - route:
+    - destination:
+        host: my-konga.kong.svc.cluster.local
+        port:
+          number: 80  

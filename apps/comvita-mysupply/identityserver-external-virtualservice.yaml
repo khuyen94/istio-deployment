@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: identity-server
+spec:
+  hosts:
+  - identityserver.hubs365.com
+  gateways:
+  - http-gateway     
+  - https-gateway               # 1
+  http:
+  - route:
+    - destination:
+        host: identity-server.backend.svc.cluster.local
+        port:
+          number: 80  

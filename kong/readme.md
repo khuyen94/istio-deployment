@@ -25,6 +25,8 @@ Go to "C:\lua\share\plugins". Then
   `kubectl apply -f https://bit.ly/kong-ingress-dbless`
 
  ### Helm Chart
+ About Kong chart: [README](https://github.com/Kong/charts/tree/master/charts/kong)
+
     $ helm repo add kong https://charts.konghq.com
     $ helm repo update
 

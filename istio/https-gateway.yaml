@@ -6,12 +6,40 @@ spec:
   selector:
     istio: ingressgateway
   servers:
-  - port:
-      number: 443
-      name: https-443
-      protocol: HTTPS
-    hosts:
-    - '*.hubs365.com'
-    tls:
-      mode: SIMPLE
-      credentialName: hubs365-com-credential
+    - hosts:
+        - comvita-mysupply.hubs365.com
+        - comvita-adyen.hubs365.com
+      port:
+        name: https-443
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: hubs365-com-credential
+        mode: SIMPLE
+    - hosts:
+        - identityserver.hubs365.com
+      port:
+        name: https-identityserver
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: hubs365-com-credential
+        mode: SIMPLE
+    - hosts:
+        - merchant-center.hubs365.com
+      port:
+        name: https-merchant-center
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: merchant-center-hubs365-com-credential
+        mode: SIMPLE
+    - hosts:
+        - admin.identityserver.hubs365.com
+      port:
+        name: https-admin-identityserver
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: hubs365-com-credential
+        mode: SIMPLE

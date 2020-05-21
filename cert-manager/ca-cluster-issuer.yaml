@@ -9,6 +9,8 @@ spec:
     privateKeySecretRef:
       name: letsencrypt
     solvers:
-    - http01:
-        ingress:
-          class: istio
+    - dns01:
+        godaddy:
+          tokenSecretRef:
+            name: digitalocean-dns
+            key: access-token

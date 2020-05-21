@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: identityserver-gateway
+  namespace: istio-system
+  labels:
+    app: ingressgateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      protocol: HTTPS
+      name: https-default
+    tls:
+      mode: SIMPLE
+      serverCertificate: "sds"
+      privateKey: "sds"
+      credentialName: "identityserver-certificate"
+    hosts:
+    - "identityserver.hubs365.com"
